@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -20,6 +21,23 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Text('Loading..'),);
+    return Scaffold(
+      body: Padding(
+        padding: const EdgeInsets.only(bottom: 200, top: 100),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Center(
+                child: SpinKitWave(
+                  color: Colors.grey[800],
+                  size: 50.0,
+                  duration: Duration(seconds: 1), // Animasyon Hizi
+                )),
+            SizedBox(height: 20),
+            Text("Yükleniyor..."),
+          ],
+        ),
+      ),
+    );
   }
 }
