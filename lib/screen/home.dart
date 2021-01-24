@@ -8,6 +8,6 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container(child: Text('hello'),);
+    return Scaffold(appBar: AppBar(title: Text('Really Simple Syndication'),centerTitle: true,),);
   }
 }

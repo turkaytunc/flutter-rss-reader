@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:flutter_rss_reader/constants/constant.dart';
 
 class Loading extends StatefulWidget {
   @override
@@ -8,7 +9,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void handleSpinner() async {
-    await Future.delayed(Duration(seconds: 5), () => {print('Yukleniyor...')});
+    await Future.delayed(Duration(seconds: 3), () => {print('Yukleniyor...')});
 
     Navigator.pushReplacementNamed(context, '/home');
   }
@@ -22,6 +23,7 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text('Dünyanın En İyi RSS Okuyucusu'),centerTitle: true,backgroundColor: appColors['bgColor'],),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 200, top: 100),
         child: Column(
@@ -29,7 +31,7 @@ class _LoadingState extends State<Loading> {
           children: [
             Center(
                 child: SpinKitWave(
-                  color: Colors.grey[800],
+                  color: appColors['spinColor'],
                   size: 50.0,
                   duration: Duration(seconds: 1), // Animasyon Hizi
                 )),
