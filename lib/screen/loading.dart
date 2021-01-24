@@ -8,7 +8,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void handleSpinner() async {
-    await Future.delayed(Duration(seconds: 2), () => {print('Loading...')});
+    await Future.delayed(Duration(seconds: 5), () => {print('Yukleniyor...')});
 
     Navigator.pushReplacementNamed(context, '/home');
   }
