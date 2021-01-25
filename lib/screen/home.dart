@@ -64,6 +64,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
+  // Rss Basligi
+  title(title) {
+    return Text(
+      title.toString(),
+      style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+      maxLines: 3,
+    );
+  }
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
