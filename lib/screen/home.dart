@@ -14,7 +14,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   static const String FEED_URL = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml';
   RssFeed _feed;
 
@@ -51,7 +50,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
       // Veriyi guncelle
       updateRssFeed(result);
-
     });
   }
 
@@ -60,7 +58,6 @@ class _HomeScreenState extends State<HomeScreen> {
     super.initState();
     load();
   }
-
 
   // Rss Basligi
   title(title) {
@@ -91,47 +88,41 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
- Widget feedHeader(){
-   return Expanded(
+  Widget feedHeader() {
+    return Expanded(
       flex: 1,
-      child: Card(
-        child: Container(
-          padding: EdgeInsets.all(10.0),
-          margin: EdgeInsets.only(left: 5.0, right: 5.0),
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Colors.red, // border color
-              width: 1.0,
+      child: Container(
+        padding: EdgeInsets.all(10.0),
+        margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.grey[700]),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              "Link: " + _feed.link,
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.lightBlue),
+              maxLines: 2,
             ),
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "Link: " + _feed.link,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-                maxLines: 2,
-              ),
-              Text(
-                "Açıklama: " + _feed.description,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-                maxLines: 3,
-              ),
-              Text(
-                "Son Güncellenme: " + _feed.lastBuildDate,
-                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-                maxLines: 1,
-              ),
-            ],
-          ),
+            Text(
+              "Açıklama: " + _feed.description,
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.lightBlue),
+              maxLines: 3,
+            ),
+            Text(
+              "Son Güncellenme: " + _feed.lastBuildDate,
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.lightBlue),
+              maxLines: 1,
+            ),
+          ],
         ),
       ),
     );
   }
 
-
- Widget feedList(){
+  Widget feedList() {
     return Expanded(
       flex: 3,
       child: Container(
@@ -178,20 +169,17 @@ class _HomeScreenState extends State<HomeScreen> {
   body() {
     return isFeedEmpty()
         ? Center(
-      child: SpinKitCircle(
-        color: appColors['spinColor'],
-        size: 50.0,
-        duration: Duration(seconds: 1), // Animasyon Hizi
-      ),
-    )
+            child: SpinKitCircle(
+              color: appColors['spinColor'],
+              size: 50.0,
+              duration: Duration(seconds: 1), // Animasyon Hizi
+            ),
+          )
         : RefreshIndicator(
-      child: list(),
-      onRefresh: () => load(),
-    );
+            child: list(),
+            onRefresh: () => load(),
+          );
   }
-
-
-
 
   @override
   Widget build(BuildContext context) {
