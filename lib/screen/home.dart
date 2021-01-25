@@ -22,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
 
 
+
   Future<RssFeed> loadFeed() async {
     try {
       Intl.defaultLocale = 'tr_TR';
@@ -33,6 +34,17 @@ class _HomeScreenState extends State<HomeScreen> {
     return null;
   }
 
+  // Rss icerigi bos mu kontrol et
+  isFeedEmpty() {
+    return null == _feed || null == _feed.items;
+  }
+
+  // Rss Guncelle
+  updateRssFeed(feed) {
+    setState(() {
+      _feed = feed;
+    });
+  }
 
 
 
