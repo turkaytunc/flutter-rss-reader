@@ -93,7 +93,42 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-
+  feedList(){
+    return Expanded(
+      flex: 3,
+      child: Container(
+        child: ListView.builder(
+          padding: EdgeInsets.all(5.0),
+          itemCount: _feed.items.length,
+          itemBuilder: (BuildContext context, int index) {
+            final item = _feed.items[index];
+            return Container(
+              margin: EdgeInsets.only(
+                bottom: 10.0,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: Colors.red, // border color
+                  width: 1.0,
+                ),
+              ),
+              child: ListTile(
+                title: title(item.title),
+                subtitle: rssPubDate(item.pubDate),
+                trailing: Icon(
+                  Icons.keyboard_arrow_right,
+                  color: Colors.red,
+                  size: 30.0,
+                ),
+                contentPadding: EdgeInsets.all(5.0),
+                onTap: () => openFeed(item.link),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
 
 
 
