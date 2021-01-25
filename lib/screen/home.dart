@@ -73,6 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  rssPubDate(pubDate) {
+    return Text(
+      pubDate.toString(),
+      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w300, color: Colors.green),
+    );
+  }
+
+  // Rss icerigini okumak icin yonlendirme yap: url_launcher
+  Future<void> openFeed(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: true,
+        forceWebView: false,
+      );
+      return;
+    }
+  }
+
+
 
 
 
