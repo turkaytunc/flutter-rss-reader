@@ -73,6 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  // rss yayin tarihi
   rssPubDate(pubDate) {
     return Text(
       pubDate.toString(),
@@ -92,8 +93,8 @@ class _HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  feedHeader(){
-    Expanded(
+ Widget feedHeader(){
+   return Expanded(
       flex: 1,
       child: Container(
         padding: EdgeInsets.all(10.0),
@@ -111,14 +112,17 @@ class _HomeScreenState extends State<HomeScreen> {
             Text(
               "Link: " + _feed.link,
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+              maxLines: 2,
             ),
             Text(
               "Açıklama: " + _feed.description,
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+              maxLines: 3,
             ),
             Text(
               "Son Güncellenme: " + _feed.lastBuildDate,
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+              maxLines: 1,
             ),
           ],
         ),
@@ -127,7 +131,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
-  feedList(){
+ Widget feedList(){
     return Expanded(
       flex: 3,
       child: Container(
@@ -164,7 +168,27 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
+  list() {
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      feedHeader(),
+      feedList(),
+    ]);
+  }
 
+  body() {
+    return isFeedEmpty()
+        ? Center(
+      child: SpinKitCircle(
+        color: appColors['spinColor'],
+        size: 50.0,
+        duration: Duration(seconds: 1), // Animasyon Hizi
+      ),
+    )
+        : RefreshIndicator(
+      child: list(),
+      onRefresh: () => load(),
+    );
+  }
 
 
 
@@ -172,7 +196,7 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text('Body'),
+      body: body(),
       appBar: AppBar(
         title: Text('Really Simple Syndication'), // Gerçekten Basit Dağıtım
         centerTitle: true,
