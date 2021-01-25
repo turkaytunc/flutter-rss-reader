@@ -94,9 +94,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         padding: EdgeInsets.all(10.0),
         margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            color: Colors.grey[700]),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[700]),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -132,15 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
           itemBuilder: (BuildContext context, int index) {
             final item = _feed.items[index];
             return Container(
+              padding: EdgeInsets.only(top: 10, bottom: 10),
               margin: EdgeInsets.only(
                 bottom: 10.0,
               ),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.red, // border color
-                  width: 1.0,
-                ),
-              ),
+                  border: Border.all(width: 1, color: Colors.blueGrey),
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.white70),
               child: ListTile(
                 title: title(item.title),
                 subtitle: rssPubDate(item.pubDate),
