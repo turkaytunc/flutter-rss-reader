@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_rss_reader/constants/constant.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -96,35 +94,37 @@ class _HomeScreenState extends State<HomeScreen> {
  Widget feedHeader(){
    return Expanded(
       flex: 1,
-      child: Container(
-        padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.only(left: 5.0, right: 5.0),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.red, // border color
-            width: 1.0,
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.all(10.0),
+          margin: EdgeInsets.only(left: 5.0, right: 5.0),
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.red, // border color
+              width: 1.0,
+            ),
           ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Link: " + _feed.link,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-              maxLines: 2,
-            ),
-            Text(
-              "Açıklama: " + _feed.description,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-              maxLines: 3,
-            ),
-            Text(
-              "Son Güncellenme: " + _feed.lastBuildDate,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-              maxLines: 1,
-            ),
-          ],
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Text(
+                "Link: " + _feed.link,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+                maxLines: 2,
+              ),
+              Text(
+                "Açıklama: " + _feed.description,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+                maxLines: 3,
+              ),
+              Text(
+                "Son Güncellenme: " + _feed.lastBuildDate,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
+                maxLines: 1,
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -154,7 +154,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 title: title(item.title),
                 subtitle: rssPubDate(item.pubDate),
                 trailing: Icon(
-                  Icons.keyboard_arrow_right,
+                  Icons.cast_rounded,
                   color: Colors.red,
                   size: 30.0,
                 ),
