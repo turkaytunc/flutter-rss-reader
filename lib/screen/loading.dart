@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_rss_reader/constants/constant.dart';
 
+
+
 class Loading extends StatefulWidget {
   @override
   _LoadingState createState() => _LoadingState();
@@ -9,7 +11,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void handleSpinner() async {
-    await Future.delayed(Duration(seconds: 3), () => {print('Yukleniyor...')});
+    await Future.delayed(Duration(seconds: 1), () => {print('Yukleniyor...')});
 
     Navigator.pushReplacementNamed(context, '/home');
   }

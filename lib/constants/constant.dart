@@ -1,4 +1,4 @@
 import 'package:flutter/material.dart';
 
-final Map appColors = {'bgColor': Colors.red, 'spinColor': Colors.grey[800]};
+final Map<String, Color> appColors = {'bgColor': Colors.red, 'spinColor': Colors.grey[800]};
 
