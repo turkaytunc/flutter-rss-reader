@@ -16,12 +16,9 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   static const String FEED_URL = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml';
-
-  RssFeed _feed; // RSS Feed Objesi
-
-
-
+  RssFeed _feed;
 
   Future<RssFeed> loadFeed() async {
     try {
@@ -44,6 +41,26 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _feed = feed;
     });
+  }
+
+  load() async {
+    loadFeed().then((result) {
+      if (null == result || result.toString().isEmpty) {
+        print('Fetch Error');
+
+        return;
+      }
+
+      // Veriyi guncelle
+      updateRssFeed(result);
+
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    load();
   }
 
 
