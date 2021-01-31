@@ -14,11 +14,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  static const List<String> rssSample = ['https://rss.nytimes.com/services/xml/rss/nyt/World.xml'];
 
-  static const  List<String> rssSample = ['https://rss.nytimes.com/services/xml/rss/nyt/World.xml'];
+
 
   String feedUrl = rssSample[0];
   RssFeed _feed;
+  bool isDark = true;
+
 
 
   // Rss bilgisini sunucudan al
@@ -58,13 +61,19 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
+  updateColorTheme() {
+    setState(() {
+      isDark = !isDark;
+    });
+    print(isDark);
+  }
 
   @override
   void initState() {
     super.initState();
+
     load();
   }
-
 
   // WIDGETLAR
 
@@ -75,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           title.toString(),
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color:  Colors.deepOrange, shadows:  <Shadow>[
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.deepOrange, shadows: <Shadow>[
             Shadow(
               offset: Offset(0.25, 0.25),
               blurRadius: 0.5,
@@ -86,10 +95,12 @@ class _HomeScreenState extends State<HomeScreen> {
               blurRadius: 0.5,
               color: Colors.deepOrangeAccent,
             ),
-          ] ),
+          ]),
           maxLines: 3,
         ),
-        SizedBox(height: 20,)
+        SizedBox(
+          height: 20,
+        )
       ],
     );
   }
@@ -119,14 +130,14 @@ class _HomeScreenState extends State<HomeScreen> {
   // Rss Header Container
   Widget feedHeader() {
     return Expanded(
-      flex: 1,
+      flex: 2,
       child: Container(
-        padding: EdgeInsets.all(10.0),
-        margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey[800]),
+        padding: EdgeInsets.all(5.0),
+        margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 10.0, bottom: 5),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey[800]),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               "Link: " + _feed.link,
@@ -143,6 +154,14 @@ class _HomeScreenState extends State<HomeScreen> {
               style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
               maxLines: 1,
             ),
+            RaisedButton.icon(
+              onPressed: updateColorTheme,
+              icon: Icon(
+                isDark?Icons.nightlight_round:Icons.wb_sunny,color: isDark?Colors.black:Colors.amber,
+              ),
+              label: Text('${isDark?"Gece Modu":"Aydinlik Yap"}'),
+              color: isDark ? Colors.white70 : Colors.black54,
+            )
           ],
         ),
       ),
@@ -213,7 +232,8 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: body(),
       appBar: AppBar(
-        title: Text('Really Simple Syndication', style: TextStyle(color: Colors.deepOrange, fontSize: 24)), // Gerçekten Basit Dağıtım
+        title: Text('Really Simple Syndication',
+            style: TextStyle(color: Colors.deepOrange, fontSize: 24)), // Gerçekten Basit Dağıtım
         centerTitle: true,
         backgroundColor: Colors.grey[800],
       ),
