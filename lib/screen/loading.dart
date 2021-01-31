@@ -11,7 +11,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void handleSpinner() async {
-    await Future.delayed(Duration(seconds: 1), () => {print('Yukleniyor...')});
+    await Future.delayed(Duration(seconds: 5), () => {print('Yükleniyor...')});
 
     Navigator.pushReplacementNamed(context, '/home');
   }
@@ -25,7 +25,7 @@ class _LoadingState extends State<Loading> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Dünyanın En İyi RSS Okuyucusu'),centerTitle: true,backgroundColor: appColors['bgColor'],),
+      appBar: AppBar(title: Text('Dünyanın En İyi RSS Okuyucusu', style: TextStyle(color: Colors.deepOrange),),centerTitle: true,backgroundColor: Colors.grey[800],elevation: 0,),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 200, top: 100),
         child: Column(

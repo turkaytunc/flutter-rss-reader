@@ -14,7 +14,10 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  String feedUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml';
+
+  static const  List<String> rssSample = ['https://rss.nytimes.com/services/xml/rss/nyt/World.xml'];
+
+  String feedUrl = rssSample[0];
   RssFeed _feed;
 
 
