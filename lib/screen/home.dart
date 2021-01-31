@@ -72,19 +72,32 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           title.toString(),
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color:  Colors.deepOrange),
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color:  Colors.deepOrange, shadows:  <Shadow>[
+            Shadow(
+              offset: Offset(0.25, 0.25),
+              blurRadius: 0.5,
+              color: Colors.deepOrangeAccent,
+            ),
+            Shadow(
+              offset: Offset(0.25, 0.25),
+              blurRadius: 0.5,
+              color: Colors.deepOrangeAccent,
+            ),
+          ] ),
           maxLines: 3,
         ),
-        SizedBox(height: 15,)
+        SizedBox(height: 20,)
       ],
     );
   }
 
   // rss yayin tarihi
   rssPubDate(pubDate) {
+    String formattedDate = pubDate.toString().substring(0, 19);
+
     return Text(
-      pubDate.toString(),
-      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.w300, color: Colors.green),
+      formattedDate,
+      style: TextStyle(fontSize: 14.0, color: Colors.white),
     );
   }
 
@@ -114,17 +127,17 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(
               "Link: " + _feed.link,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
               maxLines: 2,
             ),
             Text(
               "Açıklama: " + _feed.description,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
               maxLines: 3,
             ),
             Text(
               "Son Güncellenme: " + _feed.lastBuildDate,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
               maxLines: 1,
             ),
           ],
