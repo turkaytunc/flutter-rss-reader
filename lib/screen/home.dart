@@ -18,7 +18,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String feedUrl = rssSample[0];
   RssFeed _feed;
-  bool isDark = true;
+  bool isDark = false;
 
   // Rss bilgisini sunucudan al
   Future<RssFeed> loadFeed() async {
@@ -61,7 +61,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       isDark = !isDark;
     });
-    print(isDark);
   }
 
   @override
@@ -107,7 +106,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Text(
       formattedDate,
-      style: TextStyle(fontSize: 14.0, color: Colors.white),
+      style: TextStyle(fontSize: 14.0, color: isDark?Colors.white:Colors.black87),
     );
   }
 
@@ -128,38 +127,55 @@ class _HomeScreenState extends State<HomeScreen> {
     return Expanded(
       flex: 2,
       child: Container(
-        padding: EdgeInsets.all(5.0),
-        margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 10.0, bottom: 5),
-        decoration: BoxDecoration(borderRadius: BorderRadius.circular(5), color: Colors.grey[800]),
+        padding: EdgeInsets.only(bottom: 5.0, left: 5, right: 5),
+        margin: EdgeInsets.only(left: 5.0, right: 5.0, top: 5.0, bottom: 5),
+        decoration: BoxDecoration(
+            border: Border.all(width: 0.2, color: Colors.grey[800]),
+            borderRadius: BorderRadius.circular(5),
+            color: isDark ? Colors.grey[800] : Colors.white),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              "Link: " + _feed.link,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
-              maxLines: 2,
-            ),
-            Text(
-              "Açıklama: " + _feed.description,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
-              maxLines: 3,
-            ),
-            Text(
-              "Son Güncellenme: " + _feed.lastBuildDate,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold, color: Colors.white),
-              maxLines: 1,
-            ),
             RaisedButton.icon(
+              // Gece Modu Butonu
               onPressed: updateColorTheme,
               icon: Icon(
                 isDark ? Icons.wb_sunny : Icons.nightlight_round,
                 color: isDark ? Colors.amber : Colors.black87,
               ),
-              label: Text('${isDark ? "Aydinlik Yap" : "Gece Modu"}'),
+              label: Text('${isDark ? "Gündüz Modu" : "Gece Modu"}'),
               color: isDark ? Colors.black54 : Colors.white70,
               textColor: isDark ? Colors.white70 : Colors.black87,
-            )
+              elevation: 4,
+            ),
+            Text(
+              "Link: " + _feed.link,
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white70 : Colors.grey[800],
+              ),
+              maxLines: 2,
+            ),
+            Text(
+              "Açıklama: " + _feed.description,
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white70 : Colors.grey[800],
+              ),
+              maxLines: 3,
+            ),
+            Text(
+              "Son Güncellenme: " + _feed.lastBuildDate,
+              style: TextStyle(
+                fontSize: 18.0,
+                fontWeight: FontWeight.bold,
+                color: isDark ? Colors.white70 : Colors.grey[800],
+              ),
+              maxLines: 1,
+            ),
           ],
         ),
       ),
@@ -169,7 +185,7 @@ class _HomeScreenState extends State<HomeScreen> {
   // List Item Container
   Widget feedList() {
     return Expanded(
-      flex: 3,
+      flex: 4,
       child: Container(
         child: ListView.builder(
           padding: EdgeInsets.all(5.0),
@@ -182,9 +198,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 bottom: 10.0,
               ),
               decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.grey[800]),
+                  border: Border.all(width: 1, color: Colors.grey[600]),
                   borderRadius: BorderRadius.circular(5),
-                  color: Colors.grey[800]),
+                  color: isDark ? Colors.grey[800] : Colors.white),
               child: ListTile(
                 title: title(item.title),
                 subtitle: rssPubDate(item.pubDate),
@@ -235,7 +251,7 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(color: isDark ? Colors.deepOrange : Colors.white, fontSize: 24),
         ),
         centerTitle: true,
-        backgroundColor: isDark ? Colors.grey[800] : Colors.blue,
+        backgroundColor: isDark ? Colors.grey[800] : Colors.deepOrange,
       ),
     );
   }
