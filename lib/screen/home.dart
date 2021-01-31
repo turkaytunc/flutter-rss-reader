@@ -14,18 +14,33 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const String FEED_URL = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml';
+  String feedUrl = 'https://rss.nytimes.com/services/xml/rss/nyt/World.xml';
   RssFeed _feed;
 
+
+  // Rss bilgisini sunucudan al
   Future<RssFeed> loadFeed() async {
     try {
       Intl.defaultLocale = 'tr_TR';
-      final response = await http.Client().get(FEED_URL);
+      final response = await http.Client().get(feedUrl);
       return RssFeed.parse(response.body);
     } catch (e) {
       print('fetch error');
     }
     return null;
+  }
+
+  load() async {
+    loadFeed().then((result) {
+      if (null == result || result.toString().isEmpty) {
+        print('Fetch Error - Empty Content');
+
+        return;
+      }
+
+      // Veriyi guncelle
+      updateRssFeed(result);
+    });
   }
 
   // Rss icerigi bos mu kontrol et
@@ -40,24 +55,15 @@ class _HomeScreenState extends State<HomeScreen> {
     });
   }
 
-  load() async {
-    loadFeed().then((result) {
-      if (null == result || result.toString().isEmpty) {
-        print('Fetch Error');
-
-        return;
-      }
-
-      // Veriyi guncelle
-      updateRssFeed(result);
-    });
-  }
 
   @override
   void initState() {
     super.initState();
     load();
   }
+
+
+  // WIDGETLAR
 
   // Rss Basligi
   title(title) {
@@ -185,8 +191,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: body(),
       appBar: AppBar(
-        title: Text('Really Simple Syndication'), // Gerçekten Basit Dağıtım
+        title: Text('Really Simple Syndication', style: TextStyle(color: Colors.white,)), // Gerçekten Basit Dağıtım
         centerTitle: true,
+        backgroundColor: Colors.grey[700],
       ),
     );
   }
