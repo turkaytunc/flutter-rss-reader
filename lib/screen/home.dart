@@ -16,13 +16,9 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   static const List<String> rssSample = ['https://rss.nytimes.com/services/xml/rss/nyt/World.xml'];
 
-
-
   String feedUrl = rssSample[0];
   RssFeed _feed;
   bool isDark = true;
-
-
 
   // Rss bilgisini sunucudan al
   Future<RssFeed> loadFeed() async {
@@ -157,10 +153,12 @@ class _HomeScreenState extends State<HomeScreen> {
             RaisedButton.icon(
               onPressed: updateColorTheme,
               icon: Icon(
-                isDark?Icons.nightlight_round:Icons.wb_sunny,color: isDark?Colors.black:Colors.amber,
+                isDark ? Icons.wb_sunny : Icons.nightlight_round,
+                color: isDark ? Colors.amber : Colors.black87,
               ),
-              label: Text('${isDark?"Gece Modu":"Aydinlik Yap"}'),
-              color: isDark ? Colors.white70 : Colors.black54,
+              label: Text('${isDark ? "Aydinlik Yap" : "Gece Modu"}'),
+              color: isDark ? Colors.black54 : Colors.white70,
+              textColor: isDark ? Colors.white70 : Colors.black87,
             )
           ],
         ),
@@ -232,10 +230,12 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: body(),
       appBar: AppBar(
-        title: Text('Really Simple Syndication',
-            style: TextStyle(color: Colors.deepOrange, fontSize: 24)), // Gerçekten Basit Dağıtım
+        title: Text(
+          'Really Simple Syndication', // Gerçekten Basit Dağıtım
+          style: TextStyle(color: isDark ? Colors.deepOrange : Colors.white, fontSize: 24),
+        ),
         centerTitle: true,
-        backgroundColor: Colors.grey[800],
+        backgroundColor: isDark ? Colors.grey[800] : Colors.blue,
       ),
     );
   }
