@@ -67,10 +67,16 @@ class _HomeScreenState extends State<HomeScreen> {
 
   // Rss Basligi
   title(title) {
-    return Text(
-      title.toString(),
-      style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.red),
-      maxLines: 3,
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          title.toString(),
+          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color:  Colors.deepOrange),
+          maxLines: 3,
+        ),
+        SizedBox(height: 15,)
+      ],
     );
   }
 
@@ -108,17 +114,17 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Text(
               "Link: " + _feed.link,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.lightBlueAccent),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white),
               maxLines: 2,
             ),
             Text(
               "Açıklama: " + _feed.description,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.lightBlueAccent),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white),
               maxLines: 3,
             ),
             Text(
               "Son Güncellenme: " + _feed.lastBuildDate,
-              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.lightBlueAccent),
+              style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.white),
               maxLines: 1,
             ),
           ],
@@ -136,25 +142,25 @@ class _HomeScreenState extends State<HomeScreen> {
           padding: EdgeInsets.all(5.0),
           itemCount: _feed.items.length,
           itemBuilder: (BuildContext context, int index) {
-            final item = _feed.items[index];
+            RssItem item = _feed.items[index];
             return Container(
-              padding: EdgeInsets.only(top: 10, bottom: 10),
+              padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
               margin: EdgeInsets.only(
                 bottom: 10.0,
               ),
               decoration: BoxDecoration(
-                  border: Border.all(width: 1, color: Colors.blueGrey),
-                  borderRadius: BorderRadius.circular(10),
-                  color: Colors.white70),
+                  border: Border.all(width: 1, color: Colors.grey[800]),
+                  borderRadius: BorderRadius.circular(5),
+                  color: Colors.grey[800]),
               child: ListTile(
                 title: title(item.title),
                 subtitle: rssPubDate(item.pubDate),
                 trailing: Icon(
                   Icons.cast_rounded,
-                  color: Colors.red,
-                  size: 30.0,
+                  color: Colors.deepOrangeAccent,
+                  size: 25.0,
                 ),
-                contentPadding: EdgeInsets.all(5.0),
+                contentPadding: EdgeInsets.all(8.0),
                 onTap: () => openFeed(item.link),
               ),
             );
@@ -191,9 +197,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: body(),
       appBar: AppBar(
-        title: Text('Really Simple Syndication', style: TextStyle(color: Colors.white,)), // Gerçekten Basit Dağıtım
+        title: Text('Really Simple Syndication', style: TextStyle(color: Colors.deepOrange, fontSize: 24)), // Gerçekten Basit Dağıtım
         centerTitle: true,
-        backgroundColor: Colors.grey[700],
+        backgroundColor: Colors.grey[800],
       ),
     );
   }
