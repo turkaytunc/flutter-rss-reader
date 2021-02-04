@@ -14,7 +14,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  static const List<String> rssSample = ['https://rss.nytimes.com/services/xml/rss/nyt/World.xml'];
+  static const List<String> rssSample = [
+    'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
+    'https://www.espn.com/espn/rss/news',
+    'https://feeds.npr.org/510312/podcast.xml',
+    'https://www.haberturk.com/rss'
+  ];
 
   String feedUrl = rssSample[0];
   RssFeed _feed;
@@ -106,7 +111,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
     return Text(
       formattedDate,
-      style: TextStyle(fontSize: 14.0, color: isDark?Colors.white:Colors.black87),
+      style: TextStyle(fontSize: 14.0, color: isDark ? Colors.white : Colors.black87),
     );
   }
 
