@@ -18,10 +18,11 @@ class _HomeScreenState extends State<HomeScreen> {
     'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
     'https://www.espn.com/espn/rss/news',
     'https://feeds.npr.org/510312/podcast.xml',
+    'https://feeds.a.dj.com/rss/RSSWorldNews.xml',
     'https://www.haberturk.com/rss'
   ];
 
-  String feedUrl = rssSample[0];
+  String feedUrl = rssSample[3];
   RssFeed _feed;
   bool isDark = false;
 
@@ -32,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final response = await http.Client().get(feedUrl);
       return RssFeed.parse(response.body);
     } catch (e) {
-      print('fetch error');
+      print('fetch error - Server Not Respond');
     }
     return null;
   }
@@ -40,7 +41,7 @@ class _HomeScreenState extends State<HomeScreen> {
   load() async {
     loadFeed().then((result) {
       if (null == result || result.toString().isEmpty) {
-        print('Fetch Error - Empty Content');
+        print('Parse Error - Empty Content');
 
         return;
       }
