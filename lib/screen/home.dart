@@ -234,12 +234,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   body() {
     return isFeedEmpty()
-        ? Center(
-            child: SpinKitCircle(
-              color: appColors['spinColor'],
-              size: 50.0,
-              duration: Duration(seconds: 1), // Animasyon Hizi
-            ),
+        ? Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text("Güncelleniyor...", style: TextStyle(color: Colors.deepOrange, fontSize: 20),),
+              SizedBox(height: 20),
+              SpinKitCircle(
+                color: Colors.deepOrange,
+                size: 50.0,
+                duration: Duration(seconds: 1), // Animasyon Hizi
+              ),
+            ],
           )
         : RefreshIndicator(
             child: list(),
