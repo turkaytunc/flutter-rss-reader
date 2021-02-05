@@ -8,9 +8,10 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void handleSpinner() async {
-    await Future.delayed(Duration(seconds: 5), () => {print('Yükleniyor...')});
-
-    Navigator.pushReplacementNamed(context, '/home');
+    await Future.delayed(
+      Duration(seconds: 5),
+      () => {Navigator.pushReplacementNamed(context, '/home')},
+    );
   }
 
   @override
@@ -31,17 +32,20 @@ class _LoadingState extends State<Loading> {
         backgroundColor: Colors.grey[800],
         elevation: 0,
       ),
-      body:  Column(
+      body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Center(
               child: SpinKitWave(
-                color: Colors.deepOrange,
-                size: 50.0,
-                duration: Duration(seconds: 1), // Animation speed
-              )),
+            color: Colors.deepOrange,
+            size: 50.0,
+            duration: Duration(seconds: 1), // Animation speed
+          )),
           SizedBox(height: 20),
-          Text("Yükleniyor...", style: TextStyle(fontSize: 18, color: Colors.grey[800]),),
+          Text(
+            "Yükleniyor...",
+            style: TextStyle(fontSize: 18, color: Colors.grey[800]),
+          ),
         ],
       ),
     );
