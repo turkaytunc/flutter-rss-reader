@@ -13,7 +13,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   // Working Rss feed links
   static const List<String> rssSample = [
     'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
@@ -24,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   String feedUrl = rssSample[3];
-  RssFeed _feed;
+  RssFeed feed;
   bool isDark = false;
 
   // Fetch Rss feed
@@ -34,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
       final response = await http.Client().get(feedUrl);
       return RssFeed.parse(response.body);
     } catch (e) {
-      print('fetch error - Server Not Respond');
+      print('Fetch Error - Server Not Respond');
     }
     return null;
   }
@@ -44,7 +43,6 @@ class _HomeScreenState extends State<HomeScreen> {
     loadFeed().then((result) {
       if (null == result || result.toString().isEmpty) {
         print('Parse Error - Empty Content');
-
         return;
       }
       updateRssFeed(result);
@@ -52,12 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   isFeedEmpty() {
-    return null == _feed || null == _feed.items;
+    return feed == null || feed.items == null;
   }
 
   updateRssFeed(feed) {
     setState(() {
-      _feed = feed;
+      this.feed = feed;
     });
   }
 
@@ -70,12 +68,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     load();
   }
 
   // WIDGETS
-
 
   // RSS title
   title(title) {
@@ -84,18 +80,23 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Text(
           title.toString(),
-          style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.w500, color: Colors.deepOrange, shadows: <Shadow>[
-            Shadow(
-              offset: Offset(0.25, 0.25),
-              blurRadius: 0.5,
-              color: Colors.deepOrangeAccent,
-            ),
-            Shadow(
-              offset: Offset(0.25, 0.25),
-              blurRadius: 0.5,
-              color: Colors.deepOrangeAccent,
-            ),
-          ]),
+          style: TextStyle(
+            fontSize: 18.0,
+            fontWeight: FontWeight.w500,
+            color: Colors.deepOrange,
+            shadows: <Shadow>[
+              Shadow(
+                offset: Offset(0.25, 0.25),
+                blurRadius: 0.5,
+                color: Colors.deepOrangeAccent,
+              ),
+              Shadow(
+                offset: Offset(0.25, 0.25),
+                blurRadius: 0.5,
+                color: Colors.deepOrangeAccent,
+              ),
+            ],
+          ),
           maxLines: 3,
         ),
         SizedBox(
@@ -155,7 +156,7 @@ class _HomeScreenState extends State<HomeScreen> {
               elevation: 4,
             ),
             Text(
-              "Link: " + _feed.link,
+              "Link: " + feed.link,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -164,7 +165,7 @@ class _HomeScreenState extends State<HomeScreen> {
               maxLines: 2,
             ),
             Text(
-              "Açıklama: " + _feed.description,
+              "Açıklama: " + feed.description,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -173,7 +174,7 @@ class _HomeScreenState extends State<HomeScreen> {
               maxLines: 3,
             ),
             Text(
-              "Son Güncellenme: " + _feed.lastBuildDate,
+              "Son Güncellenme: " + feed.lastBuildDate,
               style: TextStyle(
                 fontSize: 18.0,
                 fontWeight: FontWeight.bold,
@@ -194,9 +195,9 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         child: ListView.builder(
           padding: EdgeInsets.all(5.0),
-          itemCount: _feed.items.length,
+          itemCount: feed.items.length,
           itemBuilder: (BuildContext context, int index) {
-            RssItem item = _feed.items[index];
+            RssItem item = feed.items[index];
             return Container(
               padding: EdgeInsets.only(top: 10, bottom: 10, left: 5, right: 5),
               margin: EdgeInsets.only(
@@ -236,7 +237,10 @@ class _HomeScreenState extends State<HomeScreen> {
         ? Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text("Güncelleniyor...", style: TextStyle(color: Colors.deepOrange, fontSize: 20),),
+              Text(
+                "Güncelleniyor...",
+                style: TextStyle(color: Colors.deepOrange, fontSize: 20),
+              ),
               SizedBox(height: 20),
               SpinKitCircle(
                 color: Colors.deepOrange,

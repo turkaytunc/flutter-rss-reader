@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:flutter_rss_reader/constants/constant.dart';
-
-
 
 class Loading extends StatefulWidget {
   @override
@@ -11,7 +8,7 @@ class Loading extends StatefulWidget {
 
 class _LoadingState extends State<Loading> {
   void handleSpinner() async {
-    await Future.delayed(Duration(seconds: 1), () => {print('Yükleniyor...')});
+    await Future.delayed(Duration(seconds: 5), () => {print('Yükleniyor...')});
 
     Navigator.pushReplacementNamed(context, '/home');
   }
@@ -33,9 +30,9 @@ class _LoadingState extends State<Loading> {
           children: [
             Center(
                 child: SpinKitWave(
-                  color: appColors['spinColor'],
+                  color: Colors.grey[800],
                   size: 50.0,
-                  duration: Duration(seconds: 1), // Animasyon Hizi
+                  duration: Duration(seconds: 1), // Animation speed
                 )),
             SizedBox(height: 20),
             Text("Yükleniyor..."),
