@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rss_reader/constants/constant.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:intl/intl.dart';
@@ -14,6 +13,8 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  // Working Rss feed links
   static const List<String> rssSample = [
     'https://rss.nytimes.com/services/xml/rss/nyt/World.xml',
     'https://www.espn.com/espn/rss/news',
@@ -26,7 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
   RssFeed _feed;
   bool isDark = false;
 
-  // Rss bilgisini sunucudan al
+  // Fetch Rss feed
   Future<RssFeed> loadFeed() async {
     try {
       Intl.defaultLocale = 'tr_TR';
@@ -38,6 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return null;
   }
 
+  // On refresh if feed is not empty -> update data
   load() async {
     loadFeed().then((result) {
       if (null == result || result.toString().isEmpty) {
@@ -45,18 +47,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
         return;
       }
-
-      // Veriyi guncelle
       updateRssFeed(result);
     });
   }
 
-  // Rss icerigi bos mu kontrol et
   isFeedEmpty() {
     return null == _feed || null == _feed.items;
   }
 
-  // Rss Guncelle
   updateRssFeed(feed) {
     setState(() {
       _feed = feed;
@@ -76,9 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
     load();
   }
 
-  // WIDGETLAR
+  // WIDGETS
 
-  // Rss Basligi
+
+  // RSS title
   title(title) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -106,7 +105,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // rss yayin tarihi
+  // RSS publish date
   rssPubDate(pubDate) {
     String formattedDate = pubDate.toString().substring(0, 19);
 
@@ -116,7 +115,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Rss icerigini okumak icin yonlendirme yap: url_launcher
+  // RSS feed link : url_launcher
   Future<void> openFeed(String url) async {
     if (await canLaunch(url)) {
       await launch(
@@ -144,7 +143,7 @@ class _HomeScreenState extends State<HomeScreen> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             RaisedButton.icon(
-              // Gece Modu Butonu
+              // Dark Theme Button
               onPressed: updateColorTheme,
               icon: Icon(
                 isDark ? Icons.wb_sunny : Icons.nightlight_round,
